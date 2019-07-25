@@ -10,6 +10,11 @@ namespace VectorMap2Opendrive
         static void Main(string[] args)
         {
             LoadManager.LoadCSV();
+
+            int roadCount = LoadManager.GetRoadCount();
+
+
+            LoadManager.CleanUp();
         }
     }
 
@@ -39,6 +44,23 @@ namespace VectorMap2Opendrive
             CSVFileManager<VM_Lane>.Instance().ClearUp();
             CSVFileManager<VM_Point>.Instance().ClearUp();
             CSVFileManager<VM_Node>.Instance().ClearUp();
+        }
+
+        public static int GetRoadCount()
+        {
+            int ret = 0;
+            int dtLaneCount = CSVFileManager<VM_DtLane>.Instance().GetstItemCount();
+            for ( int i = 0; i < dtLaneCount; ++i )
+            {
+                int key = -1;
+                VM_DtLane dtlane = CSVFileManager<VM_DtLane>.Instance().GetstItemByIndex(i, out key);
+                if (dtlane != null )
+                {
+                    if (dtlane.Dist == 0)
+                        ++ret;
+                }
+            }
+            return ret;
         }
     }
 }

@@ -47,38 +47,29 @@ namespace VectorMap2Opendrive
         public T GetstItemByIndex(int index, out int key)
         {
             int i = 0;
-
             foreach (KeyValuePair<int, BaseData> pair in m_DataMap)
             {
-
                 if (i == index)
-
                 {
-
                     key = pair.Key;
-
                     return (T)pair.Value;
-
                 }
-
                 i++;
+            }
+            // wrong index
+            key = -1;
+            return null;
+        }
 
+
+        public T GetstItemByID( int id )
+        {
+            if ( m_DataMap.ContainsKey(id) )
+            {
+                return (T)m_DataMap[id];
             }
 
-
-
-            // wrong index
-
-            key = -1;
-
             return null;
-
-            //			BaseData data = m_DataMap.ElementAt (index).Value;
-
-            //			key = m_DataMap.ElementAt (index).Key;
-
-            //			return (T)data;
-
         }
 
 
