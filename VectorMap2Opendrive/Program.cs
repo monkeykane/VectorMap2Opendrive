@@ -76,15 +76,15 @@ namespace VectorMap2Opendrive
                     // lanes
                     ODLaneSection laneSection = new ODLaneSection();
                     laneSection.start = start;
-                    laneSection.lanes = new List<ODLane>();
+                    
                     ODLane center = new ODLane();
                     center.id = 0;
-                    center.type = "driving";
-                    center.level = "0";
+
                     center.predecessor = "-1";
                     center.successor = "-1";
-                    laneSection.lanes.Add(center);
+                    laneSection.center = center;
 
+                    laneSection.rights = new List<ODLane>();
                     ODLane sideLane = new ODLane();
                     sideLane.id = -1; //right;
                     sideLane.type = "driving";
@@ -99,6 +99,9 @@ namespace VectorMap2Opendrive
                     width.c = 0;
                     width.d = 0;
                     sideLane.widths.Add(width);
+                    laneSection.rights.Add(sideLane);
+
+                    road.laneSections.Add(laneSection);
 
                     start += secLength;
 
@@ -109,7 +112,8 @@ namespace VectorMap2Opendrive
                 opDrive.roads.Add(road);
                 ++DIDIndex;
             }
-
+            string path = Directory.GetCurrentDirectory();
+            opDrive.SaveToXML(path + "/../../OpenDrive/output.xodr");
             LoadManager.CleanUp();
         }
     }
