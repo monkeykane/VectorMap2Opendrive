@@ -12,7 +12,7 @@ namespace VectorMap2Opendrive
 
     public class ODLane
     {
-        public string id;
+        public int id;
         public string type;
         public string level;
         public string predecessor;
@@ -45,10 +45,12 @@ namespace VectorMap2Opendrive
         public string successor;
         public List<PlaneLine> lineGeometries;
         public List<PolynomCurve> elevations;
+        public List<ODLaneSection> laneSections;
     }
 
 
-    class OpenDrive
+    public class OpenDrive
     {
+        public List<ODRoad> roads;
     }
 }
